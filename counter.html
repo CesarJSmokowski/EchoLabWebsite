@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+  #counter {
+    width:50%;
+    margin:auto;
+    border:solid;
+    padding:50px;
+    text-align:center;
+  }
+  #log {
+    width: 50%;
+    margin: auto;
+    padding: 50px;
+    text-align: center;
+  }
+
+  #reset{
+      position:relative;
+  }
+
+</style>
+<title>Counter</title>
+</head>
+<body>
+  <div id = "counter">
+    <h1> <span id = "countervalue">0</span></h1>
+    <button id = "reset" class="btn btn-secondary"> reset </button>
+    <button id = "increment" class="btn btn-primary"> increment </button>
+  </div>
+    <div id = "log"></div> 
+</body>
+<script>
+    const myIncrementButton = document.getElementById("increment");
+    const myResetButton = document.querySelector("#reset");
+    const counterElement = document.querySelector("#countervalue");
+
+    const AllButtons = document.querySelectorAll("button");
+
+    let counter = 0;
+    let resetCount = 0;
+    const log = function (message) {
+        const logArea = document.getElementById("log");
+        const node = document.createElement("div");
+        const textNode = document.createTextNode(message);
+        node.appendChild(textNode);
+        logArea.appendChild(node);
+    }
+    const increment = function () {
+        counter = counter+1;
+        counterElement.innerText = counter;
+        const newColor = Math.floor(Math.random() * 16777215).toString(16);
+        myIncrementButton.style.backgroundColor = "#" + newColor;
+        const fonts = ["Arial", "Verdana", "Helvetica", "Tahoma", "Trebuchet MS", "Times New Roman", "Georgia", "Garamond"];
+        var index = Math.floor(Math.random() * fonts.length);
+        myIncrementButton.style.fontFamily = fonts[index];
+        log("Increment button was clicked");
+    };
+    const reset = function() {
+        counter = 0;
+        counterElement.innerText = counter;
+        resetCount++;
+        myResetButton.style.right = (resetCount * 10) + "px";
+        const resetColor = Math.floor(Math.random() * 16777215).toString(16);
+        myResetButton.style.color = "#" + resetColor;
+        log("Reset button was clicked");
+    }
+    
+    myIncrementButton.addEventListener("click", increment);
+    //myResetButton.addEventListener("click", reset);
+    AllButtons.addEventListener("click", function() {
+      console.log(" -----> Any element in AllButtons was pressed <-----");
+    })
+
+    window.addEventListener("keypress", function () {
+        resetCount++;
+        myResetButton.style.left = (resetCount * 10) + "px";
+        myResetButton.style.color = "red";
+    })
+
+</script>
+</html>
